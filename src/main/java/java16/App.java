@@ -16,8 +16,6 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = DBConfig.getEntityManagerFactory();
-        System.out.println(entityManagerFactory);
         UserProfileDao userProfileDao = new UserProfileDaoImpl();
         UserDetailsDao userDetailsDao = new UserDetailsDaoImpl();
         Scanner scanner = new Scanner(System.in);
@@ -38,6 +36,7 @@ public class App {
                     11 getUserByAddress
                     12 sortUserByDateOfBirth
                     """);
+            System.out.print("Enter your choice: ");
             switch (scanner.nextInt()) {
                 case 0 -> {
                     return;
