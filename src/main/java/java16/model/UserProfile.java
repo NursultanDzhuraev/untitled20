@@ -28,6 +28,7 @@ public class UserProfile {
         this.email = email;
         this.registration_date = registration_date;
     }
+    @ToString.Exclude
     @OneToOne(mappedBy = "userProfile")
     private UserDetails userDetails;
 }

@@ -66,10 +66,14 @@ public class UserProfileDaoImpl implements UserProfileDao {
     @Override
     public UserProfile findUserByEmail(String email) {
         try {
-            return entityManager.find(UserProfile.class, email);
+            UserProfile userProfile = entityManager.find(UserProfile.class, email);
+            if (userProfile != null) {
+                return userProfile;
+            }
         }catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
     @Override

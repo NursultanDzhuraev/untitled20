@@ -1,6 +1,8 @@
 package java16.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import java16.config.DBConfig;
 import java16.dao.UserDetailsDao;
 import java16.model.UserDetails;
@@ -17,6 +19,8 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
             entityManager.getTransaction().begin();
             UserProfile userProfile = entityManager.find(UserProfile.class, userProfile_id);
             userProfile.setUserDetails(userDetails);
+            entityManager.persist(userDetails);
+            userDetails.setUserProfile(userProfile);
             entityManager.getTransaction().commit();
 
         } catch (Exception e) {
@@ -26,6 +30,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
     }
 
     @Override
+
     public UserDetails getUserDetailsById(Long id) {
         try {
             return entityManager.find(UserDetails.class, id);
@@ -67,9 +72,14 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 
     @Override
     public UserDetails getUserByAddress(String address) {
-
         try {
-          return   entityManager.find(UserDetails.class, address);
+            TypedQuery<UserDetails> query = entityManager.createQuery
+                    ("select u from UserDetails u where u.address = :address", UserDetails.class);
+            query.setParameter("address", address);
+            if (query.getResultList().isEmpty()) {
+                return null;
+            }
+            return query.getSingleResult();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

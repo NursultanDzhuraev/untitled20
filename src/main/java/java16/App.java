@@ -30,10 +30,10 @@ public class App {
                     5 find User By Email
                     6 get User Registered After Date
                     7 createUserDetails
-                    8 getUserDetailsById
+                    8 getUserDetailsByID
                     9 updateUserDetailsAddress
                     10 deleteUserDetails
-                    11 getUserByAddress
+                    11getUserByAddress
                     12 sortUserByDateOfBirth
                     """);
             System.out.print("Enter your choice: ");
@@ -59,7 +59,7 @@ public class App {
                     System.out.println(b);
                 }
                 case 5 -> {
-                    UserProfile userByEmail = userProfileDao.findUserByEmail("aibek111@gmail.com");
+                    UserProfile userByEmail = userProfileDao.findUserByEmail("aibek@gmail.com");
                     System.out.println(userByEmail);
                 }
                 case 6 -> {
@@ -69,12 +69,12 @@ public class App {
                 }
                 case 7 -> {
                     userDetailsDao.createUserDetails(1L, new UserDetails("Baiel1", LocalDate.of(2025, 1, 1), "test1"));
-                    userDetailsDao.createUserDetails(1L, new UserDetails("Baiel2", LocalDate.of(2025, 1, 1), "test2"));
-                    userDetailsDao.createUserDetails(1L, new UserDetails("Baiel3", LocalDate.of(2025, 1, 1), "test3"));
+                    userDetailsDao.createUserDetails(2L, new UserDetails("Baiel2", LocalDate.of(2025, 1, 1), "test2"));
+                    userDetailsDao.createUserDetails(4L, new UserDetails("Baiel3", LocalDate.of(2025, 1, 1), "test3"));
                 }
                 case 8 -> {
-                    UserDetails test1 = userDetailsDao.getUserByAddress("test1");
-                    System.out.println(test1);
+                    UserDetails userDetailsById = userDetailsDao.getUserDetailsById(1L);
+                    System.out.println(userDetailsById);
                 }
                 case 9 -> {
                     String s = userDetailsDao.updateUserDetailsAddress(1L, "test33");
@@ -85,11 +85,14 @@ public class App {
                     System.out.println(b);
                 }
                 case 11 -> {
-                    userDetailsDao.getUserByAddress("test2");
+                    UserDetails test2 = userDetailsDao.getUserByAddress("test2");
+                    System.out.println(test2);
                 }
                 case 12 -> {
                     List<UserDetails> desc = userDetailsDao.sortUserByDateOfBirth("desc");
-                    System.out.println(desc);
+                    for (UserDetails userDetails : desc) {
+                        System.out.println(userDetails);
+                    }
                 }
             }
         }

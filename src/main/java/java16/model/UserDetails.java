@@ -27,7 +27,7 @@ public class UserDetails {
         this.address = address;
 
     }
-
+    @ToString.Exclude
     @OneToOne
     private UserProfile userProfile;
 }
